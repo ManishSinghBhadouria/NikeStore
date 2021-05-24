@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>| Nike |</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            width: 100%;
+            margin: 10px;
+            display: flex;
+        }
+        .left{
+            border: 2px solid black;
+            width: 24%;
+            height: 620px;
+        }
+        .right{
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: auto auto auto auto auto;
+            border: 2px solid black;
+            width: 74%;
+            height: 620px;
+        }
+        .left > input{
+            display: block;
+            margin: 20px;
+            border: 2px solid black;
+            color: black;
+        }
+        .left > input[type=submit]{
+            margin-top: 40px;
+            height: 40px;
+            width: 120px;
+            font-weight: bold;
+            color: green;
+            cursor: pointer;
+        }
+        .right > div{
+            width: 180px;
+            height: 220px;
+            border: 2px solid black;
+            margin: 10px;
+            
+        }
+        .right > div > img{
+            width: 180px;
+            height: 150px;
+        }
+        button{
+            border: 2px solid black;
+            width: 172px;
+            margin: 3px;
+            height: 28px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <input id="name" type="text" placeholder="Name" required>
+            <input id="price" type="number" placeholder="Price" required>
+            <input id="desc" type="text" placeholder="Description" required>
+            <input id="delivery" type="number" placeholder="Estimated Delivery" required>
+            <input id="image" type="text" placeholder="Image URL (Optional)" required>
+            <input onclick="add()" type="submit" value="Add Product">
+        </div>
+        <div id="rightdiv" class="right">
+
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    function updat(){
+        var newprice = prompt('Enter New Price');
+    } 
+
+
+    function add(){
+        var name = document.getElementById('name').value;
+        var price = document.getElementById('price').value;
+        var desc = document.getElementById('desc').value;
+        var delivery = document.getElementById('delivery').value;
+        var imgurl = document.getElementById('image').value;
+        if(!(imgurl)){
+            imgurl = 'https://via.placeholder.com/300.png/09f/fff';
+        }
+        var data = {name:name,price:price,desc:desc,imgurl:imgurl};
+        var rightdiv = document.getElementById('rightdiv');
+        var div = document.createElement('div');
+        div.id = name;
+        var img = document.createElement('img');
+        img.src = imgurl;
+        div.append(img)
+
+        var rembutton = document.createElement('button');
+        rembutton.id = 'remove';
+        rembutton.textContent = 'Remove'
+        rembutton.onclick = function changeContent() {
+            var newdiv = document.getElementById(data.name);
+            rightdiv.removeChild(newdiv);
+            console.log("Removed -"+data.name)
+        }
+        rembutton.style.backgroundColor = '#f77979'
+        div.append(rembutton)
+
+        var updatebutton = document.createElement('button');
+        updatebutton.id = 'update';
+        updatebutton.onclick = function changeContent() {
+            var newprice = prompt('Enter New Value')
+            data.price = newprice;
+            console.log("Updated-"+data.name)
+            console.log(data);
+        }
+        updatebutton.textContent = 'Update'
+        updatebutton.style.backgroundColor = '#029adc'
+        div.append(updatebutton)
+
+        rightdiv.append(div);
+        console.log("Created-"+data.name)
+    }
+</script>
